@@ -1,0 +1,181 @@
+﻿@model Kullanici
+@{
+    ViewBag.Title = "Bilgiler";
+    Layout = "~/Views/Shared/_AnaSablon.cshtml";
+}
+<style>
+    #menu {
+        text-align: center;
+        margin-bottom: 10%;
+    }
+
+        #menu ul li {
+            line-height: 50px;
+            border-bottom: solid 1px black;
+        }
+
+            #menu ul li a {
+                color: black;
+                font-weight: bold;
+            }
+
+                #menu ul li a span {
+                    color: #f63375;
+                }
+
+                #menu ul li a:hover {
+                    color: #f63375;
+                }
+
+    tr {
+        border-bottom: 2px solid grey;
+    }
+
+
+    .field-validation-error {
+        background-color: #f37878;
+        color: white;
+        border-radius: 5px;
+        padding: 4px;
+    }
+
+    .renk {
+        background-color: #f37878;
+        color: white;
+    }
+
+    .area {
+        height: 100px;
+    }
+
+    a:hover {
+        color: black;
+    }
+
+    .dene {
+        border-right: solid 1px black;
+    }
+
+    #hizala {
+        margin: 150px 0px;
+    }
+</style>
+
+<div id="hizala">
+    <section class="subscribe">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-md-5 dene">
+                    <div id="menu">
+                        <ul>
+                            <li>
+                                <a href="/Musteri/Index">Ürünüm Nerede&nbsp;<span class="nav-icon fa fa-question-circle"></span></a>
+                            </li>
+                            <li>
+                                <a href="/Musteri/Sepet">Sepetim&nbsp;<span class="nav-icon fa fa-shopping-cart"></span></a>
+                            </li>
+                            <li>
+                                <a href="/Musteri/Gecmis">Alışverişlerim&nbsp;<span class="nav-icon fa fa-shopping-bag"></span></a>
+                            </li>
+                            <li>
+                                <a href="/Musteri/Bilgiler">Bilgilerim&nbsp;<span class="nav-icon fa fa-user"></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!------------------------------------------ GİRİŞ YAP SONU ----------------------------------->
+                <div class="col-lg-8 col-md-5">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @if (ViewBag.Hata != null)
+                            {
+                                <div class="alert alert-danger text-center renk">
+                                    @ViewBag.Hata
+                                </div>
+                            }
+                            @if (TempData["mesaj"] != null)
+                            {
+                                <div class="alert alert-danger text-center renk">
+                                    @TempData["mesaj"]
+                                </div>
+                            }   
+                            @using (Html.BeginForm("Bilgiler", "Musteri", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.HiddenFor(x => x.kullaniciID);
+                                @Html.HiddenFor(x => x.yetkiID);
+
+                                <div class="form-row">
+                                    <div class="col-lg-12" style="text-align:center;">
+                                        <img src="~/Content/Resimler/Kullanicilar/@Model.resimAd" width="150" height="150" />
+                                    </div>
+                                </div><br />
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Tc:</label>
+                                        @Html.TextBoxFor(x => x.tc, new { @class = "form-control arkaplan" })
+                                        @Html.ValidationMessageFor(x => x.tc)
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Email:</label>
+                                        @Html.TextBoxFor(x => x.email, new { @class = "form-control arkaplan" })
+                                        @Html.ValidationMessageFor(x => x.email)
+                                    </div>
+                                </div>
+                                <div class="form-row ">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Ad:</label>
+                                        @Html.TextBoxFor(x => x.ad, new { @class = "form-control arkaplan" })
+                                        @Html.ValidationMessageFor(x => x.ad)
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Telefon Numarası:</label>
+                                        @Html.TextBoxFor(x => x.telefonNo, new { @class = "form-control arkaplan" })
+                                        @Html.ValidationMessageFor(x => x.telefonNo)
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Soyad:</label>
+                                        @Html.TextBoxFor(x => x.soyad, new { @class = "form-control arkaplan" })
+                                        @Html.ValidationMessageFor(x => x.soyad)
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Şifre:</label>
+                                        @Html.TextBoxFor(x => x.sifre, new { @class = "form-control arkaplan" })
+                                        @Html.ValidationMessageFor(x => x.sifre)
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Resim:</label>
+                                        <input type="file" class="form-control arkaplan" name="gelenResim">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Adres:</label>
+                                        @Html.TextAreaFor(x => x.adres, new { @class = "form-control arkaplan area" })
+                                        @Html.ValidationMessageFor(x => x.adres)
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4"></div>
+                                    <div class="form-group col-md-4">
+                                        <button type="submit" class="btn btn-block sent-butnn">GÜNCELLE</button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+

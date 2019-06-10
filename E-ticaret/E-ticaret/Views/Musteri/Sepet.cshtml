@@ -1,0 +1,132 @@
+﻿@model List<Sepet>
+@{
+    ViewBag.Title = "Sepet";
+    Layout = "~/Views/Shared/_AnaSablon.cshtml";
+    Kullanici kullanici = (Kullanici)Session["Musteri"];
+    int genelToplam = 0;
+    int id=0;
+}
+
+<style>
+    #menu {
+        text-align: center;
+        margin-bottom: 10%;
+    }
+
+        #menu ul li {
+            line-height: 50px;
+            border-bottom: solid 1px black;
+        }
+
+            #menu ul li a {
+                color: black;
+                font-weight: bold;
+            }
+
+                #menu ul li a span {
+                    color: #f63375;
+                }
+
+                #menu ul li a:hover {
+                    color: #f63375;
+                }
+
+    tr {
+        border-bottom: 2px solid grey;
+    }
+
+    .renk {
+        background-color: #f37878;
+        color: white;
+    }
+
+    a:hover {
+        color: black;
+    }
+
+    .dene {
+        border-right: solid 1px black;
+    }
+
+    #hizala {
+        margin: 150px 0px;
+    }
+</style>
+<div id="hizala">
+    <section class="subscribe">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-md-5 dene">
+                    <div id="menu">
+                        <ul>
+                            <li>
+                                <a href="/Musteri/Index">Ürünüm Nerede&nbsp;<span class="nav-icon fa fa-question-circle"></span></a>
+                            </li>
+                            <li>
+                                <a href="/Musteri/Sepet">Sepetim&nbsp;<span class="nav-icon fa fa-shopping-cart"></span></a>
+                            </li>
+                            <li>
+                                <a href="/Musteri/Gecmis">Alışverişlerim&nbsp;<span class="nav-icon fa fa-shopping-bag"></span></a>
+                            </li>
+                            <li>
+                                <a href="/Musteri/Bilgiler">Bilgilerim&nbsp;<span class="nav-icon fa fa-user"></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!------------------------------------------ GİRİŞ YAP SONU ----------------------------------->
+                <div class="col-lg-8 col-md-5">
+                    @if (TempData["mesaj"] != null)
+                    {
+                        <div class="alert alert-danger text-center renk" style="margin:20px 0px;">
+                            @TempData["mesaj"]
+                        </div>
+                    }
+                    <table class="table" style="border:2px solid grey;margin-bottom:50px;margin-top:10px;text-align:center;">
+                        <tr style="background:#343a40;color:white;">
+                            <th>Ürün Adı</th>
+                            <th>Adedi</th>
+                            <th> Birim Fiyatı</th>
+                            <th> Toplam Fiyatı</th>
+                            <th>Ürünü sil </th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                @{int adet = item.adet.Value;
+                                    int fiyat = Convert.ToInt32(item.fiyat);
+                                    int islem = adet * fiyat;
+                                    genelToplam = genelToplam + islem;
+                                    id = id + 1;
+                                }
+                                <td>@item.Urun.urunAd</td>
+                                <td>@item.adet</td>
+                                <td>@item.fiyat.Value.ToString("0.####") TL</td>
+                                <td>@islem</td>
+                                <td>
+                                    <a href="/Musteri/Cikar/@item.sepetID" class="btn btn-sm" style="background:#f37878;" title="İptal" onclick="return confirm('İptal etmek İstediğinize emin misiniz ?')">
+                                        X ÇIKAR
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                        <tr style="background:#343a40;color:white;">
+                            <td colspan="2"></td>
+                            <td colspan="3">
+                                <b>Toplam Tutar =  @genelToplam TL</b>
+                            </td>
+                        </tr>
+                    </table>
+                    @if (id > 0)
+                    {
+                        <a href="/Musteri/Tamamla" class="btn btn-sm" style="background:#d40034;color:white;float:right;" title="İptal">
+                            ALIŞVERİŞİ TAMAMLA
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>

@@ -1,0 +1,86 @@
+﻿@model List<Kategori>
+@{
+    ViewBag.Title = "Kategoriler";
+    Layout = "~/Views/Shared/_AdminPanelSablon.cshtml";
+}
+<style>
+    table tr td {
+        text-align: center;
+    }
+    th {
+        text-align: center;
+    }
+    .arkaplan {
+    }
+    .field-validation-error {
+        background-color: #e52a2a;
+        color: white;
+        border-radius: 5px;
+        padding: 4px;
+    }
+</style>
+
+@section Header{
+    Kategoriler
+    <a href="/Kategori/Ekle" class="btn btn-success" title="Kategori Ekle">
+        <i class="fa fa-plus" style="color:white;"> Yeni Kategori </i>
+    </a>
+}
+@if (ViewBag.Hata != null)
+{
+    <div class="alert alert-danger text-center">
+        @ViewBag.Hata
+    </div>
+}
+@if (TempData["mesaj"] != null)
+{
+    <div class="alert alert-success text-center col-lg-12">
+     @TempData["mesaj"]
+    </div>
+}
+
+<div class="card card-dark col-lg-12">
+    <div class="card-header">
+    </div>
+    <div class="card-body">
+        <table class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th>Kategori Adı</th>
+                    <th width="40%">İşlemler</th>
+                </tr>
+            </thead>
+            @foreach (var kategori in Model)
+            {
+                <tr>
+                    <td>
+                        @kategori.kategoriAd
+                    </td>
+                    @if (kategori.kategoriID != 1)
+                    {
+                        <td>
+                            <a href="/Kategori/Duzenle/@kategori.kategoriID" class="btn btn-info btn-sm" title="Düzenle">
+                                <i class="fa fa-edit">  Düzenle</i>
+                            </a>
+                            <a href="/Kategori/Sil/@kategori.kategoriID" class="btn btn-danger btn-sm" title="Sil" onclick="return confirm('Silmek istediğinizden emin misiniz ?')">
+                                <i class="fa fa-trash">  Sil</i>
+                            </a>
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,80 @@
+﻿@model Giris
+@{
+    ViewBag.Title = "Giriş";
+    Layout = "~/Views/Shared/_AnaSablon.cshtml";
+}
+<style>
+    .arkaplan {
+        background-color: #f6f6f6;
+    }
+    .field-validation-error {
+        background-color: #f37878;
+        color: white;
+        border-radius: 5px;
+        padding: 4px;
+    }
+    .renk {
+        background-color: #f37878;
+        color: white;
+    }
+    a:hover{
+        color:black;
+    }
+    
+</style>
+<section class="subscribe">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6 col-md-6 " style="padding-top:2.5%;">
+                @if (TempData["Mesaj"] != null)
+                {
+                    <div class="alert alert-danger text-center renk">
+                        @TempData["Mesaj"]
+                    </div>
+                }
+                @if (TempData["Basari"] != null)
+                {
+                    <div class="alert alert-danger text-center renk">
+                        @TempData["Basari"]
+                    </div>
+                }
+                <div style="text-align:center">
+                    <h3 class="typo-main-heading mb-lg-4 mb-3 pr-3 pb-1">Giriş Yap</h3>
+                </div>
+                @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+                {
+                    <div class="form-row ">
+                        <div class="form-group col-md-2"></div>
+                        <div class="form-group col-md-8">
+                            <label for="inputEmail4">Email:</label>
+                            @Html.TextBoxFor(x => x.email, new { @class = "form-control arkaplan" })
+                            @Html.ValidationMessageFor(x => x.email)
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-2"></div>
+                        <div class="form-group col-md-8">
+                            <label for="inputEmail4">Şifre:</label>
+                            @Html.PasswordFor(x => x.sifre, new { @class = "form-control arkaplan" })
+                            @Html.ValidationMessageFor(x => x.sifre)
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-2"></div>
+                        <div class="form-group col-md-8">
+                            <button type="submit" class="btn btn-block sent-butnn">GİRİŞ YAP</button>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-5"></div>
+                        <div class="form-group col-md-7">
+                            <a href="/Login/Sifre" class="btn renk" ><u>Şifremi Unuttum</u></a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+

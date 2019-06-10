@@ -1,0 +1,57 @@
+﻿@model Slider
+@{
+    ViewBag.Title = "Düzenle";
+    Layout = "~/Views/Shared/_AdminPanelSablon.cshtml";
+}
+
+<style>
+    .field-validation-error {
+        background-color: #e52a2a;
+        color: white;
+        border-radius: 5px;
+        padding: 4px;
+    }
+
+    .area {
+        height: 100px;
+    }
+</style>
+<div class="card card-dark col-lg-12" style="margin-top:-20px;">
+    <div class="card-header">
+        @Model.resimID .Resim Güncelleme
+    </div>
+    <div class="card-body">
+        @if (ViewBag.Hata != null)
+        {
+            <div class="alert alert-danger text-center" style="color:white;">
+                @ViewBag.Hata
+            </div>
+        }
+        @using (Html.BeginForm("Duzenle", "Gorunum", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(x => x.resimID)
+
+            <div class="form-row">
+                <div class="col-lg-4"></div>
+                <div class="form-group col-lg-4">
+                    <label for="inputEmail4">Resim:</label>
+                    <input type="file" class="form-control arkaplan" name="gelenResim">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-lg-4"></div>
+                <div class="form-group col-lg-4">
+                    <label for="inputEmail4">Resim açıklaması:</label>
+                    @Html.TextAreaFor(x => x.aciklama, new { @class = "form-control area" })
+                    @Html.ValidationMessageFor(x => x.aciklama)
+                </div>
+            </div>
+
+            <div class="form-row" style="margin-top:20px;">
+                <div class="col-lg-4"></div>
+                <button type="submit" class="btn col-lg-4" style="background:black; color:white;">GÜNCELLE</button>
+            </div>
+        }
+    </div>
+</div>
+

@@ -1,0 +1,89 @@
+﻿@model List<Urun>
+@{
+    ViewBag.Title = "Ürünler";
+    Layout = "~/Views/Shared/_AdminPanelSablon.cshtml";
+}
+<style>
+    table tr td {
+        text-align: center;
+    }
+
+    th {
+        text-align: center;
+    }
+
+    .arkaplan {
+    }
+
+    .field-validation-error {
+        background-color: #e52a2a;
+        color: white;
+        border-radius: 5px;
+        padding: 4px;
+    }
+</style>
+
+@section Header{
+    Ürünler
+    <a href="/Urun/Ekle" class="btn btn-success" title="Kategori Ekle">
+        <i class="fa fa-plus" style="color:white;"> Yeni Ürün </i>
+    </a>
+}
+@if (TempData["mesaj"] != null)
+{
+    <div class="alert alert-success text-center col-lg-12">
+        @TempData["mesaj"]
+    </div>
+}
+
+<div class="card card-dark col-lg-12">
+    <div class="card-header">
+    </div>
+    <div class="card-body">
+        <table class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th>Ürün Adı</th>
+                    <th>Ürün Fiyatı</th>
+                    <th>Kategori Adı</th>
+                    <th width="40%">İşlemler</th>
+                </tr>
+            </thead>
+            @foreach (var urun in Model)
+            {
+                <tr>
+
+                    <td>
+                        @urun.urunAd
+                    </td>
+                    <td>
+                        @urun.urunFiyat.Value.ToString("0.#####") TL
+                    </td>
+                    <td>
+                        @urun.Kategori.kategoriAd
+                    </td>
+                    <td>
+                        <a href="/Urun/Duzenle/@urun.urunID" class="btn btn-info btn-sm" title="Düzenle">
+                            <i class="fa fa-edit">  Düzenle</i>
+                        </a>
+                        @if (urun.durum == true)
+                        {
+
+                            <a href="/Urun/AktifPasif/@urun.urunID" class="btn btn-sm btn-danger"  onclick="return confirm('Ürünü pasif etmek İstediğinize emin misiniz ?')">
+                                <i class="fa fa-edit" style="color:white;"> PASİF YAP</i>
+                            </a>
+
+                        }
+                        else if (urun.durum == false)
+                        {
+                            <a href="/Urun/AktifPasif/@urun.urunID" class="btn btn-sm btn-success"  onclick="return confirm('Ürünü aktif etmek İstediğinize emin misiniz ?')">
+                                <i class="fa fa-edit" style="color:white;"> AKTİF YAP</i>
+                            </a>
+
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

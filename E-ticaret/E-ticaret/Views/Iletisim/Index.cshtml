@@ -1,0 +1,112 @@
+﻿@model Iletisim
+@{
+    ViewBag.Title = "İletişim";
+    Layout = "~/Views/Shared/_AnaSablon.cshtml";
+}
+<style>
+    .arkaplan {
+        background-color: #f6f6f6;
+    }
+
+    .field-validation-error {
+        background-color: #f37878;
+        color: white;
+        border-radius: 5px;
+        padding: 4px;
+    }
+
+    .textareaboyut {
+        height: 100px;
+    }
+
+    .renk {
+        background-color: #f37878;
+        color: white;
+    }
+</style>
+<!----sub-below-address   col-lg-12 col-md-6 address-w3l-right text-center-->
+
+<div class="py-lg-4 py-md-3 py-sm-3 py-3">
+    <br />
+    @if (ViewBag.Mesaj != null)
+    {
+        <div class="alert alert-danger text-center renk">
+            @ViewBag.Mesaj
+        </div>
+    }
+    <div style="text-align:center;">
+        <h3 class="typo-main-heading mb-lg-4 mb-3 pr-3 pb-1">BİZE ULAŞIN</h3>
+    </div>
+    @using (Html.BeginForm("Index", "Iletisim", FormMethod.Post))
+    {
+        <div class="form-row ">
+            <div class="form-group col-md-4"></div>
+            <div class="form-group col-md-4">
+                <label for="inputEmail4">Ad:</label>
+                @Html.TextBoxFor(x => x.ad, new { @class = "form-control arkaplan" })
+                @Html.ValidationMessageFor(x => x.ad)
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4"></div>
+            <div class="form-group col-md-4">
+                <label for="inputEmail4">Email:</label>
+                @Html.TextBoxFor(x => x.eposta, new { @class = "form-control arkaplan" })
+                @Html.ValidationMessageFor(x => x.eposta)
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4"></div>
+            <div class="form-group col-md-4">
+                <label for="inputEmail4">Konu:</label>
+                @Html.TextBoxFor(x => x.konu, new { @class = "form-control arkaplan" })
+                @Html.ValidationMessageFor(x => x.konu)
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4"></div>
+            <div class="form-group col-md-4">
+                <label for="inputEmail4">Mesaj:</label>
+                @Html.TextAreaFor(x => x.icerik, new { @class = "form-control arkaplan textareaboyut", })
+                @Html.ValidationMessageFor(x => x.icerik)
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4"></div>
+            <div class="form-group col-md-4">
+                <button type="submit" class="btn btn-block sent-butnn">GÖNDER</button>
+            </div>
+        </div>
+    }
+</div>
+
+<section class="subscribe">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 map-info-right px-0">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3015.5225989085407!2d31.17825431491816!3d40.9042859793114!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2str!4v1547077497704" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+            <div class="col-lg-6 col-md-6 address-w3l-right text-center">
+                <div class="address-gried ">
+                    <span class="far fa-map"></span>
+                    <p>Düzce Üniversitesi Konuralp Yerleşkesi<br> Konuralp / DÜZCE
+                    <p>
+                </div>
+                <div class="address-gried mt-3">
+                    <span class="fas fa-phone-volume"></span>
+                    <p> 0380 542 11 12</p>
+                </div>
+                <div class=" address-gried mt-3">
+                    <span class="far fa-envelope"></span>
+                    <p>
+                        <a href="mailto:info@furkanaktas.com">mail@oyuncakci.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--//subscribe-address-->
+
+
+

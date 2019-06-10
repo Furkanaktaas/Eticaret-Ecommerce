@@ -1,0 +1,243 @@
+﻿@model UrunListele
+@{
+    ViewBag.Title = "Detay";
+    Layout = "~/Views/Shared/_AnaSablon.cshtml";
+    int i = -1;
+}
+@if (TempData["Mesaj"] != null)
+{
+    <div class="alert text-center" style="background:#d4004e;color:white;">
+        @TempData["Mesaj"]
+    </div>
+}
+<section class="banner-bottom py-lg-5 py-1">
+    <div class="container">
+        <div class="inner-sec-shop pt-lg-4 pt-3">
+            <div class="row">
+                <div class="col-lg-5 single-right-left ">
+                    <div class="grid images_3_of_2">
+                        <div class="flexslider1">
+
+                            <ul class="slides" style="text-align:center;">
+                                @foreach (var item in Model.urunResimler)
+                                {
+                                    i++;
+                                    if (i == 0)
+                                    {
+                                        <li data-thumb="~/Content/Resimler/Urunler/@item.resimAd" style="margin-bottom:10px;">
+                                            <div class="thumb-image"> <img src="~/Content/Resimler/Urunler/@item.resimAd" width="300" height="300" data-imagezoom="true" class="img-fluid" alt=" "> </div>
+                                        </li>
+                                    }
+                                    if (i == 1)
+                                    {
+                                        if (item.resimAd != "default.png")
+                                        {
+                                            <li data-thumb="~/Content/Resimler/Urunler/@item.resimAd" style="float:left;margin-left:10px;">
+                                                <div class="thumb-image"> <img src="~/Content/Resimler/Urunler/@item.resimAd" width="210" height="210" data-imagezoom="true" alt=" "> </div>
+                                            </li>
+                                        }
+                                    }
+                                    if (i == 2)
+                                    {
+                                        if (item.resimAd != "default.png")
+                                        {
+                                            <li data-thumb="~/Content/Resimler/Urunler/@item.resimAd" style="float:left;margin-left:10px;">
+                                                <div class="thumb-image"> <img src="~/Content/Resimler/Urunler/@item.resimAd" width="210" height="210" data-imagezoom="true" alt=" "> </div>
+                                            </li>
+                                        }
+                                    }
+                                }
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 single-right-left simpleCart_shelfItem" style="text-align:center;">
+                    <h3>@Model.urun.urunAd</h3>
+                    <p>
+                        <span class="item_price">@Model.urun.urunFiyat.Value.ToString("0.#####") TL</span>
+                    </p>
+                    <p style="font-size:14px;"><b>Kategori :</b> @Model.urun.Kategori.kategoriAd</p>
+                    <p style="font-size:14px;"><b>Özellik : </b>@Model.urunOzellik.OzellikTip.ad</p>
+                    <p style="font-size:14px;"><b> Alt Özellik :</b> @Model.urunOzellik.OzellikDeger.ad</p>
+                    @using (Html.BeginForm("Ekle", "Oyuncak", FormMethod.Post))
+                    {
+                        if (Session["Musteri"] != null)
+                        {
+                           @Html.HiddenFor(x=> x.urun.urunID)
+                            <div class="color-quality">
+                                <div class="color-quality-right" style="padding-top:50px;">
+                                    <h5><b>Adet :</b></h5>
+                                    <input type="button" value="-" id="azalt" class="btn" onclick="azaltma()" />
+                                    <input type="text" class="col-lg-3" style="border:1px solid grey;border-radius:10px;" id="sayi" name="sayi" value="1" />
+                                    <input type="button" value="+" class="btn" id="arttir" onclick="arttirma()" /> <br /><br />
+                                    <button class="btn" style="background:#ff1346;color:white;"><i class="fa fa-shoppingcart"></i> Sepete Ekle</button>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="color-quality">
+                                <div class="color-quality-right" style="padding-top:50px;">
+                                    <h5 style="color:red;"><b>Ürünü satın almak için giriş yapmanız gerekmektedir</b></h5>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="col-lg-4" style="text-align:center;background:white;">
+                    <h5><b>Kredi Kartına Taksit İmkanları</b></h5><br />
+                    <img src="~/Content/Resimler/Template/taksit.png" />
+                </div>
+                <div class="clearfix"> </div>
+
+                <!--/tabs-->
+                <div class="responsive_tabs col-lg-12">
+                    <div id="horizontalTab">
+                        <div class="resp-tabs-container">
+                            <!--/tab_one-->
+                            <div class="tab1">
+                                <div class="single_page">
+                                    <h6>Ürün Açıklaması</h6>
+                                    <p>
+                                        @Model.urun.urunAciklama
+                                    </p>
+                                </div>
+                            </div>
+                            <!--//tab_one-->
+
+                        </div>
+                    </div>
+                </div>
+                <!--//tabs-->
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script type="text/javascript">
+    function arttirma() {
+        var deger = parseInt(document.getElementById('sayi').value);
+        document.getElementById('sayi').value = deger + 1;
+    }
+    function azaltma() {
+        var deger = parseInt(document.getElementById('sayi').value);
+        if (deger != 1) {
+            document.getElementById('sayi').value = deger - 1;
+        }
+    }
+</script>
+<script src="~/Content/Tema/js/jquery-2.2.3.min.js"></script>
+<!-- newsletter modal -->
+<!-- cart-js -->
+<script src="~/Content/Tema/js/minicart.js"></script>
+<script>
+    toys.render();
+
+    toys.cart.on('toys_checkout', function (evt) {
+        var items, len, i;
+
+        if (this.subtotal() > 0) {
+            items = this.items();
+
+            for (i = 0, len = items.length; i < len; i++) { }
+        }
+    });
+</script>
+<!-- //cart-js -->
+<!-- price range (top products) -->
+<script src="~/Content/Tema/js/jquery-ui.js"></script>
+<script>
+    //<![CDATA[
+    $(window).load(function () {
+        $("#slider-range").slider({
+            range: true,
+            min: 0,
+            max: 9000,
+            values: [50, 6000],
+            slide: function (event, ui) {
+                $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+            }
+        });
+        $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
+
+    }); //]]>
+</script>
+<!-- //price range (top products) -->
+<!-- single -->
+<script src="~/Content/Tema/js/imagezoom.js"></script>
+<!-- single -->
+<!-- script for responsive tabs -->
+<script src="~/Content/Tema/js/easy-responsive-tabs.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#horizontalTab').easyResponsiveTabs({
+            type: 'default', //Types: default, vertical, accordion
+            width: 'auto', //auto or any width like 600px
+            fit: true, // 100% fit in a container
+            closed: 'accordion', // Start closed if in accordion view
+            activate: function (event) { // Callback function if tab is switched
+                var $tab = $(this);
+                var $info = $('#tabInfo');
+                var $name = $('span', $info);
+                $name.text($tab.text());
+                $info.show();
+            }
+        });
+        $('#verticalTab').easyResponsiveTabs({
+            type: 'vertical',
+            width: 'auto',
+            fit: true
+        });
+    });
+</script>
+<!-- FlexSlider -->
+<script src="~/Content/Tema/js/jquery.flexslider.js"></script>
+<script>
+    // Can also be used with $(document).ready()
+    $(window).load(function () {
+        $('.flexslider1').flexslider({
+            animation: "slide",
+            controlNav: "thumbnails"
+        });
+    });
+</script>
+<!-- //FlexSlider-->
+<!-- start-smoth-scrolling -->
+<script src="~/Content/Tema/js/move-top.js"></script>
+<script src="~/Content/Tema/js/easing.js"></script>
+<script>
+    jQuery(document).ready(function ($) {
+        $(".scroll").click(function (event) {
+            event.preventDefault();
+            $('html,body').animate({
+                scrollTop: $(this.hash).offset().top
+            }, 900);
+        });
+    });
+</script>
+<!-- start-smoth-scrolling -->
+<!-- here stars scrolling icon -->
+<script>
+    $(document).ready(function () {
+
+        var defaults = {
+            containerID: 'toTop', // fading element id
+            containerHoverID: 'toTopHover', // fading element hover id
+            scrollSpeed: 1200,
+            easingType: 'linear'
+        };
+
+
+        $().UItoTop({
+            easingType: 'easeOutQuart'
+        });
+
+    });
+</script>
+<!-- //here ends scrolling icon -->
+<!-- //smooth-scrolling-of-move-up -->
+<!--bootstrap working-->
+<script src="~/Content/Tema/js/bootstrap.min.js"></script>
+<!-- //bootstrap working-->

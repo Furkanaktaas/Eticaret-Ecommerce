@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/_AdminPanelSablon.cshtml";
+}
+@section Header{
+    Anasayfa
+}
+
+<div class="col-lg-3 col-6 ">
+    <!-- small box -->
+    <div class="small-box bg-warning">
+        <div class="inner">
+            <h3>@Session["UrunSayisi"]</h3>
+
+            <p>Ürün Sayısı</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-pie-graph"></i>
+        </div>
+    </div>
+</div>
+<div class="col-lg-3 col-6 ">
+    <!-- small box -->
+    <div class="small-box bg-danger">
+        <div class="inner">
+            <h3>@Session["TalepSayisi"] </h3>
+
+            <p>Talep Sayısı</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-bag"></i>
+        </div>
+    </div>
+</div>
+<div class="col-lg-3 col-6 ">
+    <!-- small box -->
+    <div class="small-box bg-success">
+        <div class="inner">
+
+            <h3>@Session["SatisSayisi"]</h3>
+            <p>Tamamlanmış Sipariş Sayısı</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-stats-bars"></i>
+        </div>
+    </div>
+</div>
+<div class="col-lg-3 col-6">
+    <!-- small box -->
+    <div class="small-box bg-info">
+        <div class="inner">
+            <h3> @Session["AktifKullanici"]</h3>
+
+            <p>Aktif Kullanıcı Sayısı</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-person"></i>
+        </div>
+    </div>
+</div>
+
+
+

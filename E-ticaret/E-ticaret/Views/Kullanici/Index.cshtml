@@ -1,0 +1,91 @@
+﻿@model List<Kullanici>
+@{
+    ViewBag.Title = "Kullanıcılar";
+    Layout = "~/Views/Shared/_AdminPanelSablon.cshtml";
+}
+<style>
+    table tr td {
+        text-align: center;
+    }
+
+    th {
+        text-align: center;
+    }
+</style>
+@section Header{
+    Kullanıcılar
+
+    <a href="/Kullanici/Ekle" class="btn btn-success" title="Kullanıcı Ekle">
+        <i class="fa fa-plus" style="color:white;"> Yeni Kullanıcı </i>
+    </a>
+}
+@if (TempData["mesaj"] != null)
+{
+    <div class="alert alert-success text-center col-lg-12">
+        @TempData["mesaj"]
+    </div>
+}
+@if (TempData["hata"] != null)
+{
+    <div class="alert alert-danger text-center col-lg-12">
+        @TempData["hata"]
+    </div>
+}
+<div class="card card-dark col-lg-12">
+    <div class="card-header">
+
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <th>Resim</th>
+                    <th>Tc</th>
+                    <th>Ad</th>
+                    <th>Soyad</th>
+                    <th>Email</th>
+                    <th>Yetki</th>
+                    <th style="width:350px;">İşlemler</th>
+                </tr>
+                @foreach (var kullanici in Model)
+                {
+                    <tr>
+
+                        <td><img src="~/Content/Resimler/Kullanicilar/@kullanici.resimAd" width="40" height="40" /></td>
+                        <td>@kullanici.tc</td>
+                        <td>@kullanici.ad</td>
+                        <td>@kullanici.soyad</td>
+                        <td>@kullanici.email</td>
+                        <td>@kullanici.Yetki.yetkiAd</td>
+                        <td>
+                            <a href="/Kullanici/Detay/@kullanici.kullaniciID" class="btn btn-sm" style="background:#cd853f;color:white;" title="Detay">
+                                <i class="fa fa-search"> Detay</i>
+                            </a>
+                            <a href="/Kullanici/Duzenle/@kullanici.kullaniciID" class="btn btn-sm btn-info" title="Düzenle">
+                                <i class="fa fa-edit"> Düzenle</i>
+                            </a>
+                            @if (@kullanici.durum == true)
+                            {
+
+                                <a href="/Kullanici/AktifPasif/@kullanici.kullaniciID" class="btn btn-sm" style="background:#cd3333;color:white;" title="Pasif Yap" onclick="return confirm('Pasif etmek İstediğinize emin misiniz ?')">
+                                    <i class="fa fa-edit" style="color:white;"> PASİF YAP</i>
+                                </a>
+
+                            }
+                            else if (kullanici.durum == false)
+                            {
+
+                                <a href="/Kullanici/AktifPasif/@kullanici.kullaniciID" class="btn btn-sm" style="background:#008b45" title="Aktif Yap" onclick="return confirm('Aktif etmek İstediğinize emin misiniz ?')">
+                                    <i class="fa fa-edit" style="color:white;"> AKTİF YAP</i>
+                                </a>
+
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
+

@@ -1,0 +1,89 @@
+﻿@model List<Satis>
+@{
+    ViewBag.Title = "Talep";
+    Layout = "~/Views/Shared/_AdminPanelSablon.cshtml";
+}
+
+<style>
+    table tr td {
+        text-align: center;
+    }
+
+    th {
+        text-align: center;
+    }
+
+    .arkaplan {
+    }
+
+    .field-validation-error {
+        background-color: #e52a2a;
+        color: white;
+        border-radius: 5px;
+        padding: 4px;
+    }
+</style>
+@section Header{
+    Talep Edilen Ürünler
+}
+@if (TempData["Hata"] != null)
+{
+    <div class="alert alert-danger text-center">
+        @TempData["Hata"]
+    </div>
+}
+@if (TempData["Talep"] != null)
+{
+    <div class="alert alert-success text-center col-lg-12">
+        @TempData["Talep"]
+    </div>
+}
+<div class="card card-dark col-lg-12">
+    <div class="card-header">
+    </div>
+    <div class="card-body">
+        <table class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th>Kullanıcı</th>
+                    <th>Satış Tarihi</th>
+                    <th>Tutar</th>
+                    <th>Adres</th>
+                    <th>Telefon</th>
+                    <th width="250px">İşlemler</th>
+                </tr>
+            </thead>
+            @foreach (var satis in Model)
+            {
+                <tr>
+                    <td>@satis.Kullanici.ad @satis.Kullanici.soyad</td>
+                    <td>
+                        @satis.satisTarihi.Value.ToShortDateString()
+                    </td>
+                    <td>
+                        @satis.toplamTutar.Value.ToString("0.#####") TL
+                    </td>
+                    <td>
+                        @satis.Kullanici.adres
+                    </td>
+                    <td>@satis.Kullanici.telefonNo</td>
+                    <td>
+                        <a href="/Urun/TalepDetay/@satis.satisID" class="btn btn-info btn-sm" title="Detay">
+                            <i class="fa fa-search"> Detay</i>
+                        </a>
+                        <a href="/Urun/Kargo/@satis.satisID" class="btn btn-success btn-sm" title="Kargoya Teslim Et">
+                            <i class="fa fa-sign-out"> Kargoya Teslim Et</i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+

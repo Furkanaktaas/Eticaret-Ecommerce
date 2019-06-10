@@ -1,0 +1,259 @@
+﻿@{ 
+    Kullanici kullanici = (Kullanici)Session["Admin"];
+}
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> @ViewBag.Title </title>
+    <link rel="shortcut icon" href="~/Content/Resimler/Template/Title.png" />
+
+
+
+    <link rel="stylesheet" href="/Content/AdminTema/plugins/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/Content/AdminTema/dist/css/adminlte.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="/Content/AdminTema/plugins/iCheck/flat/blue.css">
+    <!-- Morris chart -->
+    <link rel="stylesheet" href="/Content/AdminTema/plugins/morris/morris.css">
+    <!-- jvectormap -->
+    <link rel="stylesheet" href="/Content/AdminTema/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="/Content/AdminTema/plugins/datepicker/datepicker3.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="/Content/AdminTema/plugins/daterangepicker/daterangepicker-bs3.css">
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="/Content/AdminTema/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="~/Content/AdminTema/plugins/font-awesome/css/font-awesome.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Content/AdminTema/dist/css/adminlte.min.css">
+    @RenderSection("Head", false)
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition sidebar-mini" style="font-family:'Times New Roman';">
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+            <!-- Right navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="/Anasayfa/Index" class="nav-link">Anasayfa</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="/Iletisim/Index" class="nav-link">İletişim</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="" style="color:black;">
+                        Merhaba, @kullanici.ad @kullanici.soyad &nbsp;
+                        <img src="~/Content/Resimler/Kullanicilar/@kullanici.resimAd" width="30" height="30" class="img-circle" alt="User Image">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <div class="dropdown-footer">
+                            <!-- Message Start -->
+                            <div class="media">
+                                <img src="~/Content/Resimler/Kullanicilar/@kullanici.resimAd" alt="User Image" class="img-circle" width="50" height="50">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        @kullanici.ad @kullanici.soyad
+                                        <span class="float-right text-sm text-warning"><i class="fa fa-star"></i></span>
+                                    </h3>
+                                </div>
+                            </div>
+                            <!-- Message End -->
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a href="/Kullanici/Profil" class="dropdown-item">
+                            <!-- Message Start -->
+                            <div class="media">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        Profilim
+                                        <span class="float-right text-sm text-muted"><i class="fa fa-user"></i></span>
+                                    </h3>
+                                </div>
+                            </div>
+                            <!-- Message End -->
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/Admin/Cikis" class="dropdown-item" style="background:#a92828;">
+                            <!-- Message Start -->
+                            <div class="media">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title" style="color:white;">
+                                        Çıkış Yap
+                                        <span class="float-right text-sm text-muted"><i class="fa fa-sign-out" style="color:white;"></i></span>
+                                    </h3>
+                                </div>
+                            </div>
+                            <!-- Message End -->
+                        </a>
+                        <div class="dropdown-divider"></div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-dark elevation-4">
+            <div class="sidebar">
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <img src="~/Content/Resimler/Kullanicilar/@kullanici.resimAd" class="img-circle elevation-2" style="width:40px;height:40px;" />
+                    </div>
+                    <div class="info" style="padding-top:4%;">
+                        <a class="d-block">@kullanici.ad @kullanici.soyad</a>
+                    </div>
+                </div>
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                        with font-awesome or any other icon font library -->
+                        <li class="nav-item">
+                            <a href="/Admin/Index" class="nav-link">
+                                <i class="nav-icon fa fa-home"></i>
+                                <p>
+                                    Anasayfa
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Urun/Talep" class="nav-link">
+                                <i class="nav-icon fa fa-shopping-cart"></i>
+                                <p>
+                                    Talep Edilen Ürünler
+                                    <span class="right badge badge-danger"> @Session["TalepSayisi"]</span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Urun/Index" class="nav-link">
+                                <i class="nav-icon fa fa-shopping-bag"></i>
+                                <p>
+                                    Ürün İşlemleri
+                                    <span class="right badge badge-success">@Session["UrunSayisi"]</span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Kategori/Index" class="nav-link">
+                                <i class="nav-icon fa fa-list-ul"></i>
+                                <p>
+                                    Kategori İşlemleri
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Ozellik/Index" class="nav-link">
+                                <i class="nav-icon fa fa-indent"></i>
+                                <p>
+                                    Özellik İşlemleri
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/AltOzellik/Index" class="nav-link">
+                                <i class="nav-icon fa fa-sort-amount-asc"></i>
+                                <p>
+                                    Alt Özellik İşlemleri
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Kullanici/Index" class="nav-link">
+                                <i class="nav-icon fa fa-user"></i>
+                                <p>
+                                    Kullanıcı İşlemleri
+                                    <span class="right badge badge-primary"> @Session["KullaniciSayisi"]</span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Gorunum/Index" class="nav-link">
+                                <i class="nav-icon fa fa-film"></i>
+                                <p>
+                                    Görünüm
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>@RenderSection("Header", false)</h1>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- /.content-header -->
+            <!-- Main content -->
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row" style="margin-top:20px;">
+                        @RenderBody()
+                        <!-- /.col-md-6 -->
+                    </div>
+                    <!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+
+            <!-- /.content -->
+        </div>
+
+        <!-- /.content-wrapper -->
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+            <div class="p-3">
+                <h5>Title</h5>
+                <p>Sidebar content</p>
+            </div>
+        </aside>
+        <!-- /.control-sidebar -->
+        <!-- Main Footer -->
+        @*<footer class="main-footer">
+                <!-- To the right -->
+                <div class="float-right d-none d-sm-inline">
+                    <strong>&copy; 2018 - ∞</strong>
+                </div>
+                <!-- Default to the left -->
+
+            </footer>*@
+    </div>
+    <!-- ./wrapper -->
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jQuery -->
+    <script src="/Content/AdminTema/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/Content/AdminTema/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/Content/AdminTema/dist/js/adminlte.min.js"></script>
+    @RenderSection("Script", false)
+</body>
+</html>

@@ -1,0 +1,185 @@
+﻿@model UrunEkleModelView
+@{
+    /**/
+
+    ViewBag.Title = "Düzenle";
+    Layout = "~/Views/Shared/_AdminPanelSablon.cshtml";
+}
+
+<style>
+    .field-validation-error {
+        background-color: #e52a2a;
+        color: white;
+        border-radius: 5px;
+        padding: 4px;
+    }
+
+    .area {
+        height: 100px;
+    }
+</style>
+<div class="card card-dark col-lg-12" style="margin-top:-40px;">
+    <div class="card-header">
+        Ürün Düzenle
+    </div>
+    <div class="card-body">
+        @if (TempData["mesaj"] != null)
+        {
+            <div class="alert alert-success text-center col-lg-12">
+                @TempData["mesaj"]
+            </div>
+        }
+        @if (ViewBag.Hata != null)
+        {
+            <div class="alert alert-danger text-center col-lg-12">
+                @ViewBag.Hata
+            </div>
+        }
+
+        @using (Html.BeginForm("Duzenle", "Urun", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(x=> x.urun.urunID)
+            <div class="form-row">
+                <div class="col-lg-1"></div>
+                <div class="form-group col-lg-4">
+                    <label for="inputEmail4">Ürün Adı:</label>
+                    @Html.TextBoxFor(x => x.urun.urunAd, new { @class = "form-control arkaplan" })
+                    @Html.ValidationMessageFor(x => x.urun.urunAd)
+                </div>
+                <div class="col-lg-2"></div>
+                <div class="col-lg-4">
+                    <label for="inputEmail4">Kategori :</label>
+                    @Html.DropDownList("kategoriID", (SelectList)ViewBag.Kategori,new { Name="k" ,@class = "form-control" , onchange = "tikla(this)" })
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-lg-1"></div>
+                <div class="form-group col-lg-4">
+                    <label for="inputEmail4">Ürün Fiyatı:</label>
+                    @Html.TextBoxFor(x => x.urun.urunFiyat, new { @class = "form-control arkaplan" })
+                    @Html.ValidationMessageFor(x => x.urun.urunFiyat)
+                </div>
+                <div class="col-lg-2"></div>
+                <div class="form-group col-lg-4">
+                    <label for="inputEmail4">Özellik:</label>
+                    <select id="ozellikTip" class="form-control" name="ozellikTip" onchange="tikla2(this)">
+                        <option value="0" selected="selected">
+                            Özellik Seçin
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-lg-1"></div>
+                <div class="form-group col-lg-4">
+                    <label for="inputEmail4">Ürün açıklaması:</label>
+                    @Html.TextAreaFor(x => x.urun.urunAciklama, new { @class = "form-control arkaplan area" })
+                    @Html.ValidationMessageFor(x => x.urun.urunAciklama)
+                </div>
+                <div class="col-lg-2"></div>
+                <div class="form-group col-lg-4">
+                    <label for="inputEmail4">Özellik:</label>
+                    <select id="ozellikDeger" class="form-control" name="ozellikDeger">
+                        <option value="0" selected="selected">
+                            Alt Özellik Seçin
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-lg-1"></div>
+                <div class="form-group col-lg-3">
+                    <label for="inputEmail4">Resim1:<a title="Resmi değiştirmek istemiyorsanız yeni resim seçmenize gerek yoktur" style="color:red;">*</a></label>
+                    <input type="file" class="form-control arkaplan" name="gelenResim1">
+                </div>
+                <div class="form-group col-lg-3">
+                    <label for="inputEmail4">Resim2:<a title="Resmi değiştirmek istemiyorsanız yeni resim seçmenize gerek yoktur" style="color:red;">*</a></label>
+                    <input type="file" class="form-control arkaplan" name="gelenResim2">
+                </div>
+                <div class="form-group col-lg-3">
+                    <label for="inputEmail4">Resim3:<a title="Resmi değiştirmek istemiyorsanız yeni resim seçmenize gerek yoktur" style="color:red;">*</a> </label>
+                    <input type="file" class="form-control arkaplan" name="gelenResim3">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-lg-1"></div>
+                @foreach (var item in Model.urunResimler)
+                {
+                    <div class="col-lg-3" style="text-align:center;">
+                        <img src="~/Content/Resimler/Urunler/@item.resimAd" width="150" height="150" />
+                    </div>
+                }
+            </div>
+            <div class="form-row" style="margin-top:20px;">
+                <div class="col-lg-4"></div>
+                <button type="submit" class="btn col-lg-4" style="background:black; color:white;">GÜNCELLE</button>
+            </div>
+        }
+    </div>
+</div>
+<script>
+    var tikla = function (id) {
+        //    alert("Geldi => " + id.value);
+        var iki = document.getElementById("ozellikDeger");
+        var j;
+        for (j = iki.options.length - 1; j >= 1; j--) {
+            iki.remove(j);
+        }
+        var select = document.getElementById("ozellikTip");
+        var i;
+        for (i = select.options.length - 1; i >= 1; i--) {
+            select.remove(i);
+        }
+        $.ajax({
+            url: '/Urun/Ozellik/' + id.value,
+            type: 'post',
+            datatype: "application/json",
+            contentType: "text/plain",
+            data: $(this).serialize(),
+            success: function (data, textStatus, jQxhr) {
+                for (var i = 0; i < data.length; i++) {
+                    var opt = document.createElement('option');
+                    var t = data[i].ozellikTipID;
+                    opt.value = t;
+                    opt.text = data[i].ad;
+                    select.appendChild(opt);
+                }
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    }
+
+</script>
+
+<script>
+    var tikla2 = function (id) {
+        //    alert("Geldi => " + id.value);
+        var select = document.getElementById("ozellikDeger");
+        var i;
+        for (i = select.options.length - 1; i >= 1; i--) {
+            select.remove(i);
+        }
+        $.ajax({
+            url: '/Urun/AltOzellik/' + id.value,
+            type: 'post',
+            datatype: "application/json",
+            contentType: "text/plain",
+            data: $(this).serialize(),
+            success: function (data, textStatus, jQxhr) {
+                for (var i = 0; i < data.length; i++) {
+                    var opt = document.createElement('option');
+                    var t = data[i].ozellikDegerID;
+                    opt.value = t;
+                    opt.text = data[i].ad;
+                    select.appendChild(opt);
+                }
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    }
+
+</script>

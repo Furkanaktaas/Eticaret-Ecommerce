@@ -1,0 +1,91 @@
+﻿@model Giris
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .field-validation-error {
+            background-color: #c62323;
+            color: white;
+            border-radius: 5px;
+            padding: 2px;
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Şifremi Unuttum</title>
+    <link rel="shortcut icon" href="~/Content/Resimler/Template/Title.png" />
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/Content/AdminTema/dist/css/adminlte.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="/Content/AdminTema/plugins/iCheck/square/blue.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="/Content/AdminTema/index2.html"><b>Şifremi Unuttum Sayfası</b></a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+
+                @using (Html.BeginForm())
+                {
+                    <div class="form-group has-feedback">
+                        <label>Email:</label>
+                        <input name="eposta" type="email" class="form-control" placeholder="Eposta">
+                    </div>
+                    <!-- /.col -->
+                    <div class="form-group has-feedback">
+                        <button type="submit" class="btn btn-success btn-block btn-flat">MAİL GÖNDER</button>
+                    </div>
+                }
+                <p class="login-box-msg">
+                    <a href="/AdminLogin/Index" style="font-size:14px;">Giriş Ekranına Git</a>
+                </p>
+                @if (ViewBag.Hata != null)
+                {
+                    <div class="alert alert-danger text-center">
+                        @ViewBag.Hata
+                    </div>
+                }
+                @if (ViewBag.Uyari != null)
+                {
+                    <div class="alert alert-success text-center">
+                        @ViewBag.Uyari
+                    </div>
+                }
+
+            </div>
+            <!-- /.social-auth-links -->
+        </div>
+        <!-- /.login-card-body -->
+    </div>
+    <!-- /.login-box -->
+    <!-- jQuery -->
+    <script src="/Content/AdminTema/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/Content/AdminTema/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- iCheck -->
+    <script src="/Content/AdminTema/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            })
+        })
+    </script>
+</body>
+</html>

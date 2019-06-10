@@ -1,0 +1,57 @@
+﻿@model KullaniciDetay
+@{
+    ViewBag.Title = "TalepDetay";
+    Layout = "~/Views/Shared/_AdminPanelSablon.cshtml";
+}
+
+<div class="card card-dark col-12" style="margin-top:-40px;">
+    <div class="card-header">
+        Kullanıcı Detay
+    </div>
+    <table class="table">
+        <tr>
+            <td rowspan="3" width="150px"><img src="~/Content/Resimler/Kullanicilar/@Model.kullanici.resimAd" width="150" height="150" /></td>
+            <td><b>Tc Kimlik Numarası:</b> @Model.kullanici.tc</td>
+            <td> <b>Adı Soyadı:</b>@Model.kullanici.ad @Model.kullanici.soyad</td>
+            <td><b>Mail Adresi:</b> @Model.kullanici.email</td>
+        </tr>
+        <tr>
+            <td><b>Telefon Numarası:</b>@Model.kullanici.telefonNo</td>
+            <td colspan="2"><b>Adres:</b> @Model.kullanici.adres</td>
+        </tr>
+        <tr></tr>
+    </table>
+</div>
+<div class="card card-dark col-12">
+    <div class="card-header">
+        Sipariş Detayı
+        <div class="card-tools">
+            <a href="/Urun/Kargo/@Model.satisTek.satisID" class="btn btn-success btn-sm" title="Kargoya Teslim Et">
+                <i class="fa fa-sign-out"> Kargoya Teslim Et</i>
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+                <table class="table" style="text-align:center;">
+                    @foreach (var item in Model.satisDetay)
+                    {
+                            <tr style="border-bottom:2px solid grey;">
+                                <td width="150px"><img src="~/Content/Resimler/Urunler/ayi1.jpg" width="75" height="75" /></td>
+                                <td><b>Ürün Adı:</b> @item.Urun.urunAd  </td>
+                                <td><b> Fiyat:</b> @item.fiyat.Value.ToString("0.#########") TL</td>
+                                <td><b>Ürün Adedi:</b> @item.adet</td>
+                            </tr>
+                    }
+                    <tr>
+                        <td colspan="2">
+                            <b>Satış Tarihi : @Model.satisTek.satisTarihi.Value.ToShortDateString()</b>
+                        </td>
+                        <td colspan="2">
+                            <b>Toplam Tutar : @Model.satisTek.toplamTutar.Value.ToString("0.#####") TL</b>
+                        </td>
+                    </tr>
+                </table>
+    </div>
+</div>
+
+

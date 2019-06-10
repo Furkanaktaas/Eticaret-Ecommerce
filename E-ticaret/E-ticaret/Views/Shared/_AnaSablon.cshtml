@@ -1,0 +1,311 @@
+﻿@{
+    Kullanici kullanici = (Kullanici)Session["Musteri"];
+    Kullanici admin = (Kullanici)Session["Admin"];
+}
+<globalization requestEncoding="iso-8859-9" responseEncoding="iso-8859-9" culture="tr-TR" uiCulture="tr-TR" fileEncoding="iso-8859-9" /><!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <title>
+        @ViewBag.Title
+    </title>
+
+    <!--meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Toys Shop Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+         Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!--//meta tags ends here-->
+    <!--booststrap-->
+    <link href="/Content/Tema/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
+    <!--//booststrap end-->
+    <!-- font-awesome icons -->
+    <link href="/Content/Tema/css/fontawesome-all.min.css" rel="stylesheet" type="text/css" media="all">
+    <!-- //font-awesome icons -->
+    <!--Shoping cart-->
+    <link rel="stylesheet" href="/Content/Tema/css/shop.css" type="text/css" />
+    <!--//Shoping cart-->
+    <!--price range-->
+    <link rel="stylesheet" type="text/css" href="/Content/Tema/css/jquery-ui1.css">
+    <!--//price range-->
+    <!--stylesheets-->
+    <link href="/Content/Tema/css/style.css" rel='stylesheet' type='text/css' media="all">
+    <link rel="stylesheet" href="~/Content/Tema/css/shop.css" type="text/css" />
+
+    <!-- //font-awesome icons -->
+    <!-- For Clients slider -->
+    <link rel="stylesheet" href="~/Content/Tema/css/flexslider.css" type="text/css" media="all" />
+    <!--flexs slider-->
+    <link href="css/JiSlider.css" rel="stylesheet">
+    <!--Shoping cart-->
+    <link rel="stylesheet" href="~/Content/Tema/css/shop.css" type="text/css" />
+    <!--//Shoping cart-->
+    <!--//stylesheets-->
+    <link href="//fonts.googleapis.com/css?family=Sunflower:500,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+
+
+    <!--//meta tags ends here-->
+    <!--booststrap-->
+    <link href="~/Content/Tema/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
+    <!--//booststrap end-->
+    <!-- font-awesome icons -->
+    <link href="~/Content/Tema/css/fontawesome-all.min.css" rel="stylesheet" type="text/css" media="all">
+    <!-- //font-awesome icons -->
+    <!--Shoping cart-->
+    <link rel="stylesheet" href="~/Content/Tema/css/shop.css" type="text/css" />
+    <!--//Shoping cart-->
+    <link rel="stylesheet" type="text/css" href="~/Content/Tema/css/jquery-ui1.css">
+    <link href="~/Content/Tema/css/easy-responsive-tabs.css" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="~/Content/Tema/css/flexslider.css" type="text/css" media="screen" />
+    <!--stylesheets-->
+    <link href="~/Content/Tema/css/style.css" rel='stylesheet' type='text/css' media="all">
+
+</head>
+<body style="font-family:'Times New Roman';">
+    <!--headder-->
+    <div class="header-outs" id="home">
+        <div class="header-bar">
+            <div class="info-top-grid">
+                <div class="info-contact-agile">
+                    <ul>
+                        <li>
+                            <span class="fas fa-phone-volume"></span>
+                            <p>0380 5421112</p>
+                        </li>
+                        <li>
+                            <span class="fas fa-envelope"></span>
+                            <p><a href="mailto:info@furkanaktas.com">mail@oyuncakci.com</a></p>
+                        </li>
+                        @if (kullanici == null)
+                        {
+                            if (admin != null)
+                            {
+                                <li style="float:right;">
+                                    <ul>
+                                        <li>
+                                            <p><a href="/Admin/Index"> <span class="nav-icon fa fa-user"></span><b>Admin Paneline Git</b></a></p>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+                            else
+                            {
+                                <li style="float:right;">
+                                    <ul>
+                                        <li>
+                                            <p><a href="/Login/Index"><span class="nav-icon fa fa-user"></span><b>Giriş Yap</b></a></p>
+                                        </li>
+                                        <li>
+                                            <p> <a href="/Login/Kayit"> <span class="nav-icon fa fa-users"></span><b>Kayıt Ol</b></a></p>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+                        }
+                        @if (kullanici != null)
+                        {
+                            <li style="float:right;">
+                                <ul>
+                                    <li style="padding-right:10px">
+                                        <p><a href="/Musteri/Index"> <img class="img-circle" src="~/Content/Resimler/Kullanicilar/@kullanici.resimAd" width="30" height="30" /><b>    @kullanici.ad @kullanici.soyad</b></a></p>
+                                    </li>
+                                    <li>
+                                        <p><a href="/Anasayfa/Cikis"><span class="nav-icon fa fa-share"></span><b>ÇIKIŞ YAP </b></a></p>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+                <div class="temizle" style="clear:both;"></div>
+            </div>
+            <div class="container-fluid">
+                <div class="hedder-up row">
+                    <div class="col-lg-3 col-md-3 logo-head">
+                        <h1><a class="navbar-brand">Gamecak</a></h1>
+                    </div>
+
+                    <div class="col-lg-5 col-md-6   ">
+
+
+
+                    </div>
+
+                    <div class="col-lg-3 search-right">
+                        @if (Session["Musteri"] != null)
+                        {
+                            <ul>
+                                <li style="float:right;" class=" news-agile-text">
+                                    <a href="/Musteri/Sepet"> <span class="fa fa-cart-arrow-down"></span><b style="color:#ee1867">Sepete Git</b></a>
+                                </li>
+                            </ul>
+
+                        }
+                        <div class="temizle" style="clear:both;"></div>
+                    </div>
+                </div>
+            </div>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+                    <ul class="navbar-nav ">
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/Anasayfa/Index">ANASAYFA <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Oyuncak/Index" class="nav-link">OYUNCAKLAR</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Hakkimda/Index" class="nav-link">HAKKIMIZDA</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Iletisim/Index " class="nav-link">İLETİŞİM</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <!--//headder-->
+    <!-- banner -->
+    <div class="inner_page-banner one-img">
+    </div>
+    <!--//banner -->
+    <!-- short -->
+
+
+    @RenderBody()
+
+
+    <footer class="py-lg-4 py-md-3 py-sm-3 py-3 text-center">
+        <div class="copy-agile-right">
+            <p>
+                © 2018 Tüm Hakları Saklıdır. <a href="/Iletisim/Index" target="_blank"> İletişim için Tıklayın</a>
+            </p>
+        </div>
+    </footer>
+    <!-- //footer -->
+    <!-- Modal 1-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="register-form">
+                        <form action="#" method="post">
+                            <div class="fields-grid">
+                                <div class="styled-input">
+                                    <input type="text" placeholder="Your Name" name="Your Name" required="">
+                                </div>
+                                <div class="styled-input">
+                                    <input type="email" placeholder="Your Email" name="Your Email" required="">
+                                </div>
+                                <div class="styled-input">
+                                    <input type="password" placeholder="password" name="password" required="">
+                                </div>
+                                <button type="submit" class="btn subscrib-btnn">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //Modal 1-->
+    <!--js working-->
+    <script src='/Content/Tema/js/jquery-2.2.3.min.js'></script>
+    <!--//js working-->
+    <!-- cart-js -->
+    <script src="/Content/Tema/js/minicart.js"></script>
+    <script>
+        toys.render();
+
+        toys.cart.on('toys_checkout', function (evt) {
+            var items, len, i;
+
+            if (this.subtotal() > 0) {
+                items = this.items();
+
+                for (i = 0, len = items.length; i < len; i++) { }
+            }
+        });
+    </script>
+    <!-- //cart-js -->
+    <!-- price range (top products) -->
+    <script src="/Content/Tema/js/jquery-ui.js"></script>
+    <script>
+        //<![CDATA[
+        $(window).load(function () {
+            $("#slider-range").slider({
+                range: true,
+                min: 0,
+                max: 9000,
+                values: [50, 6000],
+                slide: function (event, ui) {
+                    $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                }
+            });
+            $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
+
+        }); //]]>
+    </script>
+    <!-- //price range (top products) -->
+    <!-- start-smoth-scrolling -->
+    <script src="/Content/Tema/js/move-top.js"></script>
+    <script src="/Content/Tema/js/easing.js"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 900);
+            });
+        });
+    </script>
+    <!-- start-smoth-scrolling -->
+    <!-- here stars scrolling icon -->
+    <script>
+        $(document).ready(function () {
+
+            var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+            };
+
+
+            $().UItoTop({
+                easingType: 'easeOutQuart'
+            });
+
+        });
+    </script>
+    <!-- //here ends scrolling icon -->
+    <!--bootstrap working-->
+    <script src="/Content/Tema/js/bootstrap.min.js"></script>
+    <!-- //bootstrap working-->      <!-- //OnScroll-Number-Increase-JavaScript -->
+</body>
+</html>

@@ -1,0 +1,106 @@
+﻿@model Kullanici
+@{
+    ViewBag.Title = "Kullanıcı Ekle";
+    Layout = "~/Views/Shared/_AdminPanelSablon.cshtml";
+}
+
+<style>
+    .field-validation-error {
+        background-color: #e52a2a;
+        color: white;
+        border-radius: 5px;
+        padding: 4px;
+    }
+
+    .area {
+        height: 100px;
+    }
+</style>
+<div class="card card-dark col-lg-12" style="margin-top:-40px;">
+    <div class="card-header">
+        Kullanıcı Ekle
+    </div>
+    <div class="card-body">
+        @if (ViewBag.Hata != null)
+        {
+            <div class="alert alert-danger text-center" style="color:white;">
+                @ViewBag.Hata
+            </div>
+        }
+        @if (ViewBag.Mesaj != null || TempData["Basari"] != null)
+        {
+            <div class="alert alert-success text-center" style="color:white;">
+                @ViewBag.Mesaj @TempData["Basari"]
+            </div>
+        }
+        @using (Html.BeginForm("Ekle", "Kullanici", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="form-row">
+                <div class="col-lg-1"></div>
+                <div class="form-group col-lg-4">
+                    <label for="inputEmail4">Tc:</label>
+                    @Html.TextBoxFor(x => x.tc, new { @class = "form-control arkaplan" })
+                    @Html.ValidationMessageFor(x => x.tc)
+                </div>
+                <div class="col-lg-2"></div>
+                <div class="form-group col-lg-4">
+                    <label for="inputEmail4">Email:</label>
+                    @Html.TextBoxFor(x => x.email, new { @class = "form-control arkaplan" })
+                    @Html.ValidationMessageFor(x => x.email)
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-lg-1"></div>
+                <div class="form-group col-lg-4">
+                    <label for="inputEmail4">Ad:</label>
+                    @Html.TextBoxFor(x => x.ad, new { @class = "form-control arkaplan" })
+                    @Html.ValidationMessageFor(x => x.ad)
+                </div>
+                <div class="col-lg-2"></div>
+                <div class="form-group col-lg-4">
+                    <label for="inputEmail4">Soyad:</label>
+                    @Html.TextBoxFor(x => x.soyad, new { @class = "form-control arkaplan" })
+                    @Html.ValidationMessageFor(x => x.soyad)
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-lg-1"></div>
+                <div class="form-group col-lg-4">
+                    <label for="inputEmail4">Telefon Numarası:</label>
+                    @Html.TextBoxFor(x => x.telefonNo, new { @class = "form-control arkaplan" })
+                    @Html.ValidationMessageFor(x => x.telefonNo)
+                </div>
+                <div class="col-lg-2"></div>
+                <div class="form-group col-lg-4">
+                    <label for="inputEmail4">Şifre:</label>
+                    @Html.TextBoxFor(x => x.sifre, new { @class = "form-control arkaplan" })
+                    @Html.ValidationMessageFor(x => x.sifre)
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-4">
+                    <label for="inputEmail4">Yetki:</label>
+                    @Html.DropDownList("yetkiID", (SelectList)ViewBag.Yetkiler, new { @class = "form-control" })
+                </div>
+                <div class="col-lg-2"></div>
+                <div class="form-group col-lg-4">
+                    <label for="inputEmail4">Resim:</label>
+                    <input type="file" class="form-control arkaplan" name="gelenResim">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-lg-1"></div>
+                <div class="form-group col-lg-10">
+                    <label for="inputEmail4">Adres:</label>
+                    @Html.TextAreaFor(x => x.adres, new { @class = "form-control arkaplan area" })
+                    @Html.ValidationMessageFor(x => x.adres)
+                </div>
+            </div>
+            <div class="form-row" style="margin-top:20px;">
+                <div class="col-lg-4"></div>
+                <button type="submit" class="btn col-lg-4" style="background:black; color:white;">KAYDET</button>
+            </div>
+        }
+    </div>
+</div>

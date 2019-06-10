@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Şifre Sıfırlama";
+    Layout = "~/Views/Shared/_AnaSablon.cshtml";
+}
+<style>
+    .arkaplan {
+        background-color: #f6f6f6;
+    }
+
+    .field-validation-error {
+        background-color: #f37878;
+        color: white;
+        border-radius: 5px;
+        padding: 4px;
+    }
+
+    .renk {
+        background-color: #f37878;
+        color: white;
+    }
+
+    .area {
+        height: 100px;
+    }
+</style>
+@if (ViewBag.Hata != null)
+{
+    <div class="alert alert-danger text-center renk">
+        @ViewBag.Hata
+    </div>
+}
+@if (ViewBag.Uyari != null)
+{
+    <div class="alert alert-danger text-center renk">
+        @ViewBag.Uyari
+    </div>
+}
+<div style="text-align:center">
+    <h3 class="typo-main-heading mb-lg-4 mb-3 pr-3 pb-1" style="margin:20px 0px;">Şifremi Unuttum</h3>
+</div>
+@using (Html.BeginForm())
+{
+    <div class="form-row ">
+        <div class="form-group col-md-4"></div>
+        <div class="form-group col-md-4">
+            <label for="inputEmail4">Email:</label>
+            <input name="eposta" type="email" class="form-control" placeholder="Eposta">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4"></div>
+        <div class="form-group col-md-4">
+            <button type="submit" class="btn btn-block sent-butnn">MAİL GÖNDER</button>
+        </div>
+    </div>
+    <p class="login-box-msg">
+        <a href="/AdminLogin/Sifre"><u>Şifremi Unutum</u></a>
+    </p>
+}

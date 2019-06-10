@@ -1,0 +1,119 @@
+﻿@model KullaniciDetay
+@{
+    ViewBag.Title = "Detay";
+    Layout = "~/Views/Shared/_AdminPanelSablon.cshtml";
+    int i = 1;
+}
+<div class="card card-dark col-12" style="margin-top:-40px;">
+    <div class="card-header">
+        Kullanıcı Detay
+        <div class="card-tools">
+            @if (Model.kullanici.durum == true)
+            {
+
+                <b>Durum: </b><a class="btn-sm btn-success" style="color:white;font-weight:bold;">Aktif</a>
+            }
+            else
+            {
+                <b>Durum: </b><a class="btn-sm btn-danger" style="color:white;font-weight:bold;">Pasif</a>
+            }
+        </div>
+    </div>
+    <table class="table">
+        <tr>
+            <td rowspan="3" width="150px"><img src="~/Content/Resimler/Kullanicilar/@Model.kullanici.resimAd" width="150" height="150" /></td>
+            <td><b>Tc Kimlik Numarası:</b> @Model.kullanici.tc</td>
+            <td> <b>Adı Soyadı:</b>@Model.kullanici.ad @Model.kullanici.soyad</td>
+            <td><b>Mail Adresi:</b> @Model.kullanici.email</td>
+        </tr>
+        <tr>
+            <td><b>Kullanıcı Şifresi:</b> @Model.kullanici.sifre</td>
+            <td><b>Yetki Türü:</b> @Model.kullanici.Yetki.yetkiAd</td>
+            <td><b>Telefon Numarası:</b>@Model.kullanici.telefonNo</td>
+
+        </tr>
+        <tr>
+            <td colspan="3"><b>Adres:</b> @Model.kullanici.adres</td>
+        </tr>
+        <tr></tr>
+    </table>
+</div>
+<div class="card card-dark col-12">
+    <div class="card-header">
+        Sipariş Geçmişleri
+    </div>
+    <div class="card-body">
+        @if (Model.satis.Count == 0)
+        {
+            <div class="alert alert-warning text-center" style="color:black; font-weight:bold;">
+                Alışveriş geçmişi bulunmamaktadır.
+            </div>
+        }
+        else
+        {
+            foreach (var satis in Model.satis)
+            {
+
+                <table class="table" style="border:3px solid grey;margin-bottom:50px;margin-top:10px;text-align:center;">
+                    <tr style="background:#343a40; color :white;">
+                        <td colspan="3" style="text-align:center;">
+                            @{
+                                <b style="font-size:20px;">SİPARİŞ @i</b>
+                                i++;
+                            }
+                        </td>
+
+                        @if (satis.siparisDurumID == 1)
+                        {
+
+                            <td width="300px" style="text-align:right;"><a class="btn-sm btn-warning" style="font-weight:bold;color:black;">@satis.SiparisDurum.ad</a></td>
+                        }
+                        else if (satis.siparisDurumID == 2)
+                        {
+                            <td width="300px" style="text-align:right;"><a class="btn-sm btn-info" style="font-weight:bold;color:black;">@satis.SiparisDurum.ad</a></td>
+                        }
+                        else if (satis.siparisDurumID == 3)
+                        {
+                            <td width="300px" style="text-align:right;"><a class="btn-sm btn-success" style="font-weight:bold;color:black;">@satis.SiparisDurum.ad</a></td>
+                        }
+                        else
+                        {
+                            <td width="300px" style="text-align:right;"><a class="btn-sm btn-danger" style="font-weight:bold;color:black;">@satis.SiparisDurum.ad</a></td>
+                        }
+                    </tr>
+                    <tr style="background:#969696;color:white;">
+                        <th>Ürün Resmi</th>
+                        <th>Ürün Adı</th>
+                        <th>Ürün Fiyatı</th>
+                        <th>Ürün Adedi</th>
+                    </tr>
+                    @foreach (var item in Model.satisDetay)
+                    {
+
+                        if (satis.satisID == item.satisID)
+                        {
+                            <tr style="border-bottom:2px solid grey;">
+                                <td width="150px"><img src="~/Content/Resimler/Urunler/ayi1.jpg" width="75" height="75" /></td>
+                                <td> @item.Urun.urunAd  </td>
+                                <td> @item.fiyat.Value.ToString("0.#########") TL</td>
+                                <td> @item.adet</td>
+                            </tr>
+                        }
+                    }
+
+                    <tr style="background:#343a40;color:white;">
+                        <td colspan="2">
+                            <b>Satış Tarihi : @satis.satisTarihi.Value.ToShortDateString()</b>
+                        </td>
+                        <td colspan="2">
+                            <b>Toplam Tutar : @satis.toplamTutar.Value.ToString("0.#########") TL</b>
+                        </td>
+                    </tr>
+                </table>
+
+            }
+
+
+        }
+    </div>
+</div>

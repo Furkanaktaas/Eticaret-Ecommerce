@@ -1,0 +1,28 @@
+﻿@model Kullanici
+@{
+    ViewBag.Title = "Şifre Sıfırla";
+    Layout = "~/Views/Shared/_AnaSablon.cshtml";
+}
+
+<div style="text-align:center">
+    <h3 class="typo-main-heading mb-lg-4 mb-3 pr-3 pb-1" style="margin:20px 0px;">Şifremi Unuttum</h3>
+</div>
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(x => x.kullaniciID)
+    <div class="form-row ">
+        <div class="form-group col-md-4"></div>
+        <div class="form-group col-md-4">
+            <label for="inputEmail4">Yeni Şifre:</label>
+            <input name="sifre" type="password" class="form-control" placeholder="Şifre">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4"></div>
+        <div class="form-group col-md-4">
+            <button type="submit" class="btn btn-block sent-butnn">KAYDET</button>
+        </div>
+    </div>
+}
+
+

@@ -1,0 +1,166 @@
+﻿@model KullaniciDetay
+@{
+    ViewBag.Title = "Ürünüm Nerede ?";
+    Layout = "~/Views/Shared/_AnaSablon.cshtml";
+    int i = 1;
+}
+<style>
+    #menu {
+        text-align: center;
+        margin-bottom: 10%;
+    }
+
+        #menu ul li {
+            line-height: 50px;
+            border-bottom: solid 1px black;
+        }
+
+            #menu ul li a {
+                color: black;
+                font-weight: bold;
+            }
+
+                #menu ul li a span {
+                    color: #f63375;
+                }
+
+                #menu ul li a:hover {
+                    color: #f63375;
+                }
+
+    tr {
+        border-bottom: 2px solid grey;
+    }
+
+    .renk {
+        background-color: #f37878;
+        color: white;
+    }
+
+    a:hover {
+        color: black;
+    }
+
+    .dene {
+        border-right: solid 1px black;
+    }
+
+    #hizala {
+        margin: 150px 0px;
+    }
+</style>
+
+<div id="hizala">
+    <section class="subscribe">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-md-5 dene">
+                    <div id="menu">
+                        <ul>
+                            <li>
+                                <a href="/Musteri/Index">Ürünüm Nerede&nbsp;<span class="nav-icon fa fa-question-circle"></span></a>
+                            </li>
+                            <li>
+                                <a href="/Musteri/Sepet">Sepetim&nbsp;<span class="nav-icon fa fa-shopping-cart"></span></a>
+                            </li>
+                            <li>
+                                <a href="/Musteri/Gecmis">Alışverişlerim&nbsp;<span class="nav-icon fa fa-shopping-bag"></span></a>
+                            </li>
+                            <li>
+                                <a href="/Musteri/Bilgiler">Bilgilerim&nbsp;<span class="nav-icon fa fa-user"></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!------------------------------------------ GİRİŞ YAP SONU ----------------------------------->
+                <div class="col-lg-8 col-md-5">
+                    @if (TempData["mesaj"] != null)
+                    {
+                        <div class="alert alert-danger text-center renk" style="margin:20px 0px;">
+                            @TempData["mesaj"]
+                        </div>
+                    }
+                    @if (Model.satis.Count == 0)
+                    {
+                        <div class="alert text-center" style="background:#f37878;color:white;">
+                            Yeni ürün siparişiniz bulunmamaktadır
+                        </div>
+                    }
+                    else
+                    {
+                        foreach (var satis in Model.satis)
+                        {
+
+                            <table class="table" style="border:2px solid grey;margin-bottom:50px;margin-top:10px;text-align:center;">
+
+                                <tr style="background:#343a40;color:white;">
+
+                                    @if (satis.siparisDurumID == 1)
+                                    {
+                                        <td width="300px"><a class="btn-sm btn-warning" style="font-weight:bold;color:black;">@satis.SiparisDurum.ad</a></td>
+                                        <td colspan="2" style="text-align:center;">
+                                            @{
+                                                <b style="font-size:20px;">SİPARİŞ @i</b>
+                                                i++;
+                                            }
+                                        </td>
+                                        <td>
+                                            <a href="/Musteri/Iptal/@satis.satisID" class="btn btn-sm" style="background:#ed1f1f;" title="İptal" onclick="return confirm('İptal etmek İstediğinize emin misiniz ?')">
+                                                X İPTAL
+                                            </a>
+                                        </td>
+                                    }
+                                    else if (satis.siparisDurumID == 2)
+                                    {
+                                        <td width="300px;"><a class="btn-sm btn-info" style="font-weight:bold;color:black;">@satis.SiparisDurum.ad</a></td>
+                                        <td colspan="2" style="text-align:center;">
+                                            @{
+                                                <b style="font-size:20px;">SİPARİŞ @i</b>
+                                                i++;
+                                            }
+                                        </td>
+                                        <td></td>
+                                    }
+                                </tr>
+                                <tr style="background:#969696;color:white;">
+                                    <th>Ürün Resmi</th>
+                                    <th>Ürün Adı</th>
+                                    <th>Ürün Fiyatı</th>
+                                    <th>Ürün Adedi</th>
+                                </tr>
+                                @foreach (var item in Model.satisDetay)
+                                {
+
+                                    if (satis.satisID == item.satisID)
+                                    {
+                                        <tr>
+                                            <td><img src="~/Content/Resimler/Urunler/ayi1.jpg" width="75" height="75" /></td>
+                                            <td> @item.Urun.urunAd  </td>
+                                            <td> @item.fiyat.Value.ToString("0.#########") TL</td>
+                                            <td> @item.adet</td>
+                                        </tr>
+                                    }
+                                }
+
+                                <tr style="background:#343a40;color:white;">
+                                    <td colspan="2">
+                                        <b>Satış Tarihi : @satis.satisTarihi.Value.ToShortDateString()</b>
+                                    </td>
+                                    <td colspan="2">
+                                        <b>Toplam Tutar : @satis.toplamTutar.Value.ToString("0.#########") TL</b>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        }
+
+
+                    }
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
